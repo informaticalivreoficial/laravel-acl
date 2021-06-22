@@ -14,7 +14,7 @@
                                 </div>
                             @endif
 
-                            <a class="text-success" href="">+ Cadastrar Recurso</a>
+                            <a class="text-success" href="{{route('user.create')}}">+ Cadastrar Usuário</a>
 
                             @if($errors)
                                 @foreach($errors->all() as $error)
@@ -28,16 +28,28 @@
                                 <head>
                                     <tr>
                                         <th>#</th>
-                                        <th>Recurso</th>
+                                        <th>Usuário</th>
                                         <th>Ações</th>
                                     </tr>
                                 </head>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                <tbody>                                    
+                                        @if($users->count() > 0)
+                                            @foreach($users as $user)
+                                            <tr>
+                                                <td>{{$user->id}}</td>
+                                                <td>{{$user->name}}</td>
+                                                <td>
+                                                    <a class="mr-3 btn btn-sm btn-outline-success" href="">Editar</a>
+                                                    <a class="mr-3 btn btn-sm btn-outline-info" href="">Perfil</a>
+                                                    <form class="" action="{{route('user.destroy',['user' => $user->id])}}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <input class="btn btn-sm btn-outline-danger" type="submit" value="Deletar">
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        @endif                                    
                                 </tbody>
                             </table>
                         </div>

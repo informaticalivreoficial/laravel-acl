@@ -16,7 +16,9 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view('users.index');
+        return view('users.index', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -82,6 +84,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::where('id', $id)->first();
+        $user->delete();
+
+        return redirect()->route('user.index');
     }
 }
