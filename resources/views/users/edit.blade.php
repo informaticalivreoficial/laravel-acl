@@ -8,7 +8,7 @@
                 <div class="card-header">Painel</div>
                 <div class="card-body">
 
-                    <a class="text-success" href="{{route('user.index')}}">< Voltar para a Listagem</a>
+                    <a class="text-success" href="{{route('user.index')}}">← Voltar para a Listagem</a>
 
                     @if($errors)
                         @foreach($errors->all() as $error)
@@ -23,17 +23,17 @@
                         @method('PUT')
                         <div class="form-group">
                             <label for="name">Usuário</label>
-                            <input type="text" class="form-control" placeholder="Nome do Usuário" id="name" name="name" value="{{old('name') ?? $user->name}}">
+                            <input type="text" class="form-control input-lg" placeholder="Nome do Usuário" id="name" name="name" value="{{old('name') ?? $user->name}}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" placeholder="Email do Usuário" id="email" name="email" value="{{old('email') ?? $user->email}}">
+                            <input type="email" class="form-control input-lg" placeholder="Email do Usuário" id="email" name="email" value="{{old('email') ?? $user->email}}">
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha</label>
-                            <input type="password" class="form-control" placeholder="Senha do Usuário" id="senha" name="password" value="{{old('password')}}">
+                            <input type="password" class="form-control input-lg" placeholder="Senha do Usuário" id="senha" name="password" value="{{old('password')}}">
                         </div>
-                        <button class="btn btn-lg btn-block btn-success">Cadastrar Usuário</button>
+                        <button class="btn btn-lg btn-block btn-success">Atualizar Usuário</button>
                     </form>
                 </div>
             </div>

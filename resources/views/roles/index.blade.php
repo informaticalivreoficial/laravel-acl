@@ -14,7 +14,7 @@
                                 </div>
                             @endif
 
-                            <a class="text-success" href="{{route('user.create')}}">+ Cadastrar Usuário</a>
+                            <a class="text-success" href="{{route('role.create')}}">+ Cadastrar Perfil</a>
 
                             @if($errors)
                                 @foreach($errors->all() as $error)
@@ -28,20 +28,20 @@
                                 <head>
                                     <tr>
                                         <th>#</th>
-                                        <th>Usuário</th>
+                                        <th>Perfil</th>
                                         <th>Ações</th>
                                     </tr>
                                 </head>
                                 <tbody>                                    
-                                        @if($users->count() > 0)
-                                            @foreach($users as $user)
+                                        @if($roles->count() > 0)
+                                            @foreach($roles as $role)
                                             <tr>
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->name}}</td>
+                                                <td>{{$role->id}}</td>
+                                                <td>{{$role->name}}</td>
                                                 <td>
-                                                    <a class="mr-3 btn btn-sm btn-outline-success" href="{{route('user.edit',['user' => $user->id])}}">Editar</a>
-                                                    <a class="mr-3 btn btn-sm btn-outline-info" href="">Perfil</a>
-                                                    <form class="d-inline" action="{{route('user.destroy',['user' => $user->id])}}" method="post">
+                                                    <a class="mr-3 btn btn-sm btn-outline-success" href="{{route('role.edit',['role' => $role->id])}}">Editar</a>
+                                                    <a class="mr-3 btn btn-sm btn-outline-info" href="">Permissões</a>
+                                                    <form class="d-inline" action="{{route('permission.destroy',['role' => $role->id])}}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <input class="btn btn-sm btn-outline-danger" type="submit" value="Deletar">

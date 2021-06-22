@@ -14,7 +14,7 @@
                                 </div>
                             @endif
 
-                            <a class="text-success" href="{{route('user.create')}}">+ Cadastrar Usuário</a>
+                            <a class="text-success" href="{{route('permission.create')}}">+ Cadastrar Permissão</a>
 
                             @if($errors)
                                 @foreach($errors->all() as $error)
@@ -28,20 +28,20 @@
                                 <head>
                                     <tr>
                                         <th>#</th>
-                                        <th>Usuário</th>
+                                        <th>Permissão</th>
                                         <th>Ações</th>
                                     </tr>
                                 </head>
                                 <tbody>                                    
-                                        @if($users->count() > 0)
-                                            @foreach($users as $user)
+                                        @if($permissions->count() > 0)
+                                            @foreach($permissions as $permission)
                                             <tr>
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->name}}</td>
+                                                <td>{{$permission->id}}</td>
+                                                <td>{{$permission->name}}</td>
                                                 <td>
-                                                    <a class="mr-3 btn btn-sm btn-outline-success" href="{{route('user.edit',['user' => $user->id])}}">Editar</a>
+                                                    <a class="mr-3 btn btn-sm btn-outline-success" href="{{route('permission.edit',['permission' => $permission->id])}}">Editar</a>
                                                     <a class="mr-3 btn btn-sm btn-outline-info" href="">Perfil</a>
-                                                    <form class="d-inline" action="{{route('user.destroy',['user' => $user->id])}}" method="post">
+                                                    <form class="d-inline" action="{{route('permission.destroy',['permission' => $permission->id])}}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <input class="btn btn-sm btn-outline-danger" type="submit" value="Deletar">
