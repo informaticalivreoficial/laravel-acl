@@ -114,4 +114,41 @@ class UserController extends Controller
 
         return redirect()->route('user.index');
     }
+
+    public function roles($role)
+    {
+        $role = Role::where('id', $role)->first();
+        $permissions = Permission::all();
+
+        foreach($permissions as $permission){
+            if($role->hasPermissionTo($permission->name)){
+                $permission->can = true;
+            }else{
+                $permission->can = false;
+            }
+        }
+
+        return view('roles.permissions', [
+            'role' => $role,
+            'permissions' => $permissions
+        ]);
+    }
+
+    public function rolesSync(Request $request, $role)
+    {
+        $permissionsRequest = $request->except(['_token', '_method']);
+
+        foreach($permissionsRequest as $key => $value){
+            $permissions[] = Permission::where('id', $key)->first();
+        }
+
+        $role = Role::where('id', $role)->first();
+        if(!empty($permissions)){
+            $role->syncPermissions($permissions);
+        }else{
+            $role->syncPermissions(null);
+        }
+
+        return redirect()->route('role.permissions', ['role' => $role->id]);
+    }
 }

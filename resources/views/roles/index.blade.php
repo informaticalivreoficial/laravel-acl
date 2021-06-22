@@ -40,8 +40,8 @@
                                                 <td>{{$role->name}}</td>
                                                 <td>
                                                     <a class="mr-3 btn btn-sm btn-outline-success" href="{{route('role.edit',['role' => $role->id])}}">Editar</a>
-                                                    <a class="mr-3 btn btn-sm btn-outline-info" href="">Permissões</a>
-                                                    <form class="d-inline" action="{{route('permission.destroy',['role' => $role->id])}}" method="post">
+                                                    <a class="mr-3 btn btn-sm btn-outline-info" href="{{route('role.permissions', ['role' => $role->id])}}">Permissões</a>
+                                                    <form class="d-inline" action="{{route('role.destroy',['role' => $role->id])}}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <input class="btn btn-sm btn-outline-danger" type="submit" value="Deletar">
