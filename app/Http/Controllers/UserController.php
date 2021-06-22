@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -115,40 +117,40 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function roles($role)
+    public function roles($user)
     {
-        $role = Role::where('id', $role)->first();
-        $permissions = Permission::all();
+        $user = User::where('id', $user)->first();
+        $roles = Role::all();
 
-        foreach($permissions as $permission){
-            if($role->hasPermissionTo($permission->name)){
-                $permission->can = true;
+        foreach($roles as $role){
+            if($user->hasRole($role->name)){
+                $role->can = true;
             }else{
-                $permission->can = false;
+                $role->can = false;
             }
         }
 
-        return view('roles.permissions', [
-            'role' => $role,
-            'permissions' => $permissions
+        return view('users.roles', [
+            'user' => $user,
+            'roles' => $roles
         ]);
     }
 
-    public function rolesSync(Request $request, $role)
+    public function rolesSync(Request $request, $user)
     {
-        $permissionsRequest = $request->except(['_token', '_method']);
+        $rolesRequest = $request->except(['_token', '_method']);
 
-        foreach($permissionsRequest as $key => $value){
-            $permissions[] = Permission::where('id', $key)->first();
+        foreach($rolesRequest as $key => $value){
+            $roles[] = Role::where('id', $key)->first();
         }
 
-        $role = Role::where('id', $role)->first();
-        if(!empty($permissions)){
-            $role->syncPermissions($permissions);
+        $user = User::where('id', $user)->first();
+        if(!empty($roles)){
+            $user->syncRoles($roles);
         }else{
-            $role->syncPermissions(null);
+            $user->syncRoles(null);
         }
 
-        return redirect()->route('role.permissions', ['role' => $role->id]);
+        return redirect()->route('user.roles', ['user' => $user->id]);
     }
 }
