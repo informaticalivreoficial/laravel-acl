@@ -75,6 +75,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if(!Auth::user()->hasPermissionTo('Editar Artigo')){
+            throw new UnauthorizedException('403', 'Você não tem autorização para esta requisição');
+        }
+        
         return view('posts.edit', [
             'post' => $post
         ]);
@@ -89,6 +93,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if(!Auth::user()->hasPermissionTo('Editar Artigo')){
+            throw new UnauthorizedException('403', 'Você não tem autorização para esta requisição');
+        }
+
         $post->title = $request->title;
         $post->content = $request->content;
 
